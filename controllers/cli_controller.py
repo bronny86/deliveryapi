@@ -2,7 +2,7 @@ from flask import Blueprint
 
 from init import db
 from models.customer import Customer
-
+from models.dasher import Dasher
 
 db_commands = Blueprint("db", __name__)
 
@@ -32,6 +32,21 @@ def seed_tables():
     ]
    
     db.session.add_all(customers)
+    
+    dashers = [
+        Dasher(
+            name="Honey",
+            phone="2356335",
+            email="honey@puppy.com"
+        ),
+        Dasher(
+            name="Bunny",
+            phone="23564336",
+            email="bunny@kitten.com"
+        )
+    ]
+    
+    db.session.add_all(dashers)
         
     db.session.commit()
     

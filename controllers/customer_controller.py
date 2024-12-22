@@ -24,7 +24,7 @@ def get_customer(customer_id):
         data = customer_schema.dump(customer)
         return data
     else:
-        return {"message": f"Customers with id {customer_id} does not exist"}, 404
+        return {"message": f"Customer with id {customer_id} does not exist"}, 404
 
 # create - /customers - POST
 @customers_bp.route("/", methods=["POST"])

@@ -5,6 +5,7 @@ from flask import Flask
 from init import db, ma
 from controllers.cli_controller import db_commands
 from controllers.customer_controller import customers_bp
+from controllers.dasher_controller import dashers_bp
 
 
 
@@ -20,5 +21,6 @@ def create_app():
     
     app.register_blueprint(db_commands)
     app.register_blueprint(customers_bp)
+    app.register_blueprint(dashers_bp)
     
     return app

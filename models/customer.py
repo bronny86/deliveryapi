@@ -18,7 +18,7 @@ class CustomerSchema(ma.Schema):
     
     ordered = True
     
-    orders = fields.List(fields.Nested("OrderSchema", exclude=("customer",)))
+    orders = fields.List(fields.Nested("OrderSchema", exclude=["customer"]))
     
     class Meta:
         fields = ("id", "name", "address", "phone", "orders")

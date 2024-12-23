@@ -36,6 +36,8 @@ def seed_tables():
    
     db.session.add_all(customers)
     
+    db.session.commit()
+    
     dashers = [
         Dasher(
             name="Honey",
@@ -50,6 +52,8 @@ def seed_tables():
     ]
     
     db.session.add_all(dashers)
+    
+    db.session.commit()
     
     restaurants = [
         Restaurant(

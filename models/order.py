@@ -17,16 +17,16 @@ class Order(db.Model):
     
     customer = db.relationship("Customer", back_populates="orders")
     
-    dasher = db.relationship("Dasher", back_populates="orders", cascade="all, delete")
+    dasher = db.relationship("Dasher", back_populates="orders")
     
 class OrderSchema(ma.Schema):
     
     ordered = True
-    customer = fields.Nested("CustomerSchema", exclude=("orders",))
-    dasher = fields.List(fields.Nested("DasherSchema", exclude=("orders",)))
+    customer = fields.Nested("CustomerSchema", exclude=["orders"])
+    dasher = fields.Nested("DasherSchema", exclude=["orders"])
     
     class Meta:
-        fields = ("id", "order_date", "order_total", "delivery_address", "customer_id", "dasher_id")
+        fields = ("id", "order_date", "order_total", "delivery_address", "customer_id", "dasher_id", "customer", "dasher")
         
 order_schema = OrderSchema()
 orders_schema = OrderSchema(many=True)

@@ -16,9 +16,8 @@ class Dasher(db.Model):
     
 class DasherSchema(ma.Schema):
     
-    ordered = True
     
-    orders = fields.List(fields.Nested("OrderSchema", exclude=("dasher",)))
+    orders = fields.List(fields.Nested("OrderSchema", exclude=["dasher"]))
     
     class Meta:
         fields = ("id", "name", "phone", "email", "orders")

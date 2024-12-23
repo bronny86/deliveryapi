@@ -10,10 +10,13 @@ customers_bp = Blueprint("customers", __name__, url_prefix="/customers")
 # read all - /customers GET
 @customers_bp.route("/")
 def get_customers():
-    stmt = db.select(Customer)
+    customer_id = request.args.get("customer_id")
+    if customer_id:
+        stmt = db.select(Customer).filter_by(customer_id=customer_id)
+    else:
+        stmt = db.select(Customer)
     customers_list = db.session.scalars(stmt)
-    data = customers_schema.dump(customers_list)
-    return data
+    return customers_schema.dump(customers_list)
 
 # read one - /customers/id - GET
 @customers_bp.route("/<int:customer_id>")

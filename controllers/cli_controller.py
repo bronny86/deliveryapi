@@ -4,6 +4,8 @@ from init import db
 from models.customer import Customer
 from models.dasher import Dasher
 from models.restaurant import Restaurant
+from models.order import Order
+from models.menu_item import MenuItem
 
 db_commands = Blueprint("db", __name__)
 
@@ -54,36 +56,113 @@ def seed_tables():
             name="McDonalds",
             address="1234 7th Street",
             cuisine="Fast Food",
-            phone="123-456-7890"
+            phone="123-456-7891"
         ),
         Restaurant(
             name="Smoking Joes",
             address="1234 8th Street",
             cuisine="Italian",
-            phone="123-456-7800"
+            phone="123-456-782"
         ),
         
         Restaurant(
             name="Taco Bell",
             address="1234 9th Street",
             cuisine="Mexican",
-            phone="123-456-7890"
+            phone="123-456-7490"
         ),
         Restaurant(
             name="Panda Express",
             address="1234 10th Street",
             cuisine="Chinese",
-            phone="123-456-7800"
+            phone="123-456-7600"
         ),
         Restaurant(
             name="Dosa Hut",
             address="1234 11th Street",
             cuisine="Indian",
-            phone="123-456-7890"
+            phone="123-456-7896"
         )
     ]
     
     db.session.add_all(restaurants)
+    
+    db.session.commit()
+    
+    orders = [
+        Order(
+            order_date="2024-12-23",
+            order_total=23.45,
+            delivery_address="1234 12th Street",
+            customer_id=customers[0].id,
+            dasher_id=dashers[0].id
+        ),
+        Order(
+            order_date="2024-12-23",
+            order_total=24.45,
+            delivery_address="1234 13th Street",
+            customer_id=customers[1].id,
+            dasher_id=dashers[1].id)
+    ]
+    
+    db.session.add_all(orders)
+    
+    db.session.commit()
+    
+    menu_items = [
+        MenuItem(
+            name="Big Mac",
+            price=5.99,
+            restaurant_id=restaurants[0].id
+        ),
+        MenuItem(
+            name="Cheeseburger",
+            price=1.99,
+            restaurant_id=restaurants[0].id
+        ),
+        MenuItem(
+            name="Spaghetti",
+            price=10.99,
+            restaurant_id=restaurants[1].id
+        ),
+        MenuItem(
+            name="Lasagna",
+            price=12.99,
+            restaurant_id=restaurants[1].id
+        ),
+        MenuItem(
+            name="Taco",
+            price=2.99,
+            restaurant_id=restaurants[2].id
+        ),
+        MenuItem(
+            name="Burrito",
+            price=4.99,
+            restaurant_id=restaurants[2].id
+        ),
+        MenuItem(
+            name="Orange Chicken",
+            price=6.99,
+            restaurant_id=restaurants[3].id
+        ),
+        MenuItem(
+            name="Fried Rice",
+            price=5.99,
+            restaurant_id=restaurants[3].id
+        ),
+        MenuItem(
+            name="Dosa",
+            price=8.99,
+            restaurant_id=restaurants[4].id
+        ),
+        MenuItem(
+            name="Biryani",
+            price=10.99,
+            restaurant_id=restaurants[4].id
+        )
+    ]
+    
+    db.session.add_all(menu_items)
         
     db.session.commit()
     

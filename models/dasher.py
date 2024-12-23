@@ -1,3 +1,5 @@
+from marshmallow import fields
+
 from init import db, ma
 
 class Dasher(db.Model):
@@ -10,12 +12,16 @@ class Dasher(db.Model):
     phone = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     
+    orders = db.relationship("Order", back_populates="dasher", cascade="all, delete")
+    
 class DasherSchema(ma.Schema):
     
     ordered = True
     
+    orders = fields.List(fields.Nested("OrderSchema", exclude=("dasher",)))
+    
     class Meta:
-        fields = ("id", "name", "phone", "email")
+        fields = ("id", "name", "phone", "email", "orders")
         
 dasher_schema = DasherSchema()
 dashers_schema = DasherSchema(many=True)

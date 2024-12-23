@@ -13,13 +13,17 @@ class Restaurant(db.Model):
     name = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255), nullable=False)
     cuisine = db.Column(db.String(255), nullable=False)
-    phone = db.Column(db.String(255), nullable=False, unique=True)
+    phone = db.Column(db.String(255))
+    
+    menu_items = db.relationship("MenuItem", back_populates="restaurant", cascade="all, delete")
     
 class RestaurantSchema(ma.Schema):
     
     cuisine = fields.String(validate=OneOf(VALID_CUISINES))
     
     ordered = True
+    
+    menu_items = fields.List(fields.Nested("MenuItemSchema", exclude=("restaurant",)))
     
     class Meta:
         fields = ("id", "name", "address", "cuisine", "phone")

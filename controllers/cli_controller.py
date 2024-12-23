@@ -3,6 +3,7 @@ from flask import Blueprint
 from init import db
 from models.customer import Customer
 from models.dasher import Dasher
+from models.restaurant import Restaurant
 
 db_commands = Blueprint("db", __name__)
 
@@ -47,6 +48,42 @@ def seed_tables():
     ]
     
     db.session.add_all(dashers)
+    
+    restaurants = [
+        Restaurant(
+            name="McDonalds",
+            address="1234 7th Street",
+            cuisine="Fast Food",
+            phone="123-456-7890"
+        ),
+        Restaurant(
+            name="Smoking Joes",
+            address="1234 8th Street",
+            cuisine="Italian",
+            phone="123-456-7800"
+        ),
+        
+        Restaurant(
+            name="Taco Bell",
+            address="1234 9th Street",
+            cuisine="Mexican",
+            phone="123-456-7890"
+        ),
+        Restaurant(
+            name="Panda Express",
+            address="1234 10th Street",
+            cuisine="Chinese",
+            phone="123-456-7800"
+        ),
+        Restaurant(
+            name="Dosa Hut",
+            address="1234 11th Street",
+            cuisine="Indian",
+            phone="123-456-7890"
+        )
+    ]
+    
+    db.session.add_all(restaurants)
         
     db.session.commit()
     

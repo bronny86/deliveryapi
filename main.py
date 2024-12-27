@@ -10,7 +10,6 @@ from controllers.dasher_controller import dashers_bp
 from controllers.restaurant_controller import restaurants_bp
 from controllers.order_controller import orders_bp
 from controllers.menu_item_controller import menu_items_bp
-from controllers.orderitem_controller import order_items_bp
 
 
 def create_app():
@@ -43,6 +42,5 @@ def create_app():
     app.register_blueprint(restaurants_bp)
     app.register_blueprint(orders_bp)
     app.register_blueprint(menu_items_bp)
-    app.register_blueprint(order_items_bp)
     
     return app

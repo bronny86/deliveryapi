@@ -16,7 +16,6 @@ class Customer(db.Model):
 
 class CustomerSchema(ma.Schema):
     
-    ordered = True
     
     orders = fields.List(fields.Nested("OrderSchema", exclude=["customer"]))
     

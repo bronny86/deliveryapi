@@ -13,14 +13,18 @@ class MenuItem(db.Model):
     
     restaurant = db.relationship("Restaurant", back_populates="menu_items")
     
+    order_items = db.relationship("OrderItem", back_populates="menu_item", cascade="all, delete")
+    
 class MenuItemSchema(ma.Schema):
     
     ordered = True
     
-    restaurant = fields.Nested("RestaurantSchema", exclude=("menu_items",))
+    restaurant = fields.Nested("RestaurantSchema", only=["name"])
+    
+    order_items = fields.List(fields.Nested("OrderItemSchema", only=["quantity"]))
     
     class Meta:
-        fields = ("id", "name", "price", "restaurant_id")
+        fields = ("id", "name", "price", "restaurant_id", "restaurant", "order_items")
         
 menu_item_schema = MenuItemSchema()
 menu_items_schema = MenuItemSchema(many=True)

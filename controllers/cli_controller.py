@@ -6,6 +6,7 @@ from models.dasher import Dasher
 from models.restaurant import Restaurant
 from models.order import Order
 from models.menu_item import MenuItem
+from models.order_item import OrderItem
 
 db_commands = Blueprint("db", __name__)
 
@@ -168,6 +169,63 @@ def seed_tables():
     
     db.session.add_all(menu_items)
         
+    db.session.commit()
+    
+    order_items = [
+        OrderItem(
+            quantity=2,
+            order_id=orders[0].id,
+            menu_item_id=menu_items[0].id
+        ),
+        OrderItem(
+            quantity=1,
+            order_id=orders[0].id,
+            menu_item_id=menu_items[1].id
+        ),
+        OrderItem(
+            quantity=3,
+            order_id=orders[1].id,
+            menu_item_id=menu_items[2].id
+        ),
+        OrderItem(
+            quantity=2,
+            order_id=orders[1].id,
+            menu_item_id=menu_items[3].id
+        ),
+        OrderItem(
+            quantity=4,
+            order_id=orders[1].id,
+            menu_item_id=menu_items[4].id
+        ),
+        OrderItem(
+            quantity=2,
+            order_id=orders[1].id,
+            menu_item_id=menu_items[5].id
+        ),
+        OrderItem(
+            quantity=3,
+            order_id=orders[1].id,
+            menu_item_id=menu_items[6].id
+        ),
+        OrderItem(
+            quantity=2,
+            order_id=orders[1].id,
+            menu_item_id=menu_items[7].id
+        ),
+        OrderItem(
+            quantity=1,
+            order_id=orders[1].id,
+            menu_item_id=menu_items[8].id
+        ),
+        OrderItem(
+            quantity=1,
+            order_id=orders[1].id,
+            menu_item_id=menu_items[9].id
+        )
+    ]
+    
+    db.session.add_all(order_items)
+    
     db.session.commit()
     
     print("Tables seeded")

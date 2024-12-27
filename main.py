@@ -10,6 +10,7 @@ from controllers.dasher_controller import dashers_bp
 from controllers.restaurant_controller import restaurants_bp
 from controllers.order_controller import orders_bp
 from controllers.menu_item_controller import menu_items_bp
+from controllers.order_item_controller import order_items_bp
 
 
 def create_app():
@@ -17,7 +18,7 @@ def create_app():
     
     print("Server started")
     
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://delivery_dev:123456@localhost:5432/delivery_db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
     
     app.json.sort_keys = False
     
@@ -42,5 +43,6 @@ def create_app():
     app.register_blueprint(restaurants_bp)
     app.register_blueprint(orders_bp)
     app.register_blueprint(menu_items_bp)
+    app.register_blueprint(order_items_bp)
     
     return app

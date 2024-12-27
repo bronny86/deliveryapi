@@ -23,7 +23,7 @@ class RestaurantSchema(ma.Schema):
     
     ordered = True
     
-    menu_items = fields.List(fields.Nested("MenuItemSchema", exclude=("restaurant",)))
+    menu_items = fields.List(fields.Nested("MenuItemSchema", exclude=["restaurant"]))
     
     class Meta:
         fields = ("id", "name", "address", "cuisine", "phone")

@@ -19,14 +19,18 @@ class Order(db.Model):
     
     dasher = db.relationship("Dasher", back_populates="orders")
     
+    order_items = db.relationship("OrderItem", back_populates="order")
+    
 class OrderSchema(ma.Schema):
     
     ordered = True
     customer = fields.Nested("CustomerSchema", exclude=["orders"])
     dasher = fields.Nested("DasherSchema", exclude=["orders"])
     
+    order_items = fields.List(fields.Nested("OrderItemSchema", exclude=["order"]))
+    
     class Meta:
-        fields = ("id", "order_date", "order_total", "delivery_address", "customer_id", "dasher_id", "customer", "dasher")
+        fields = ("id", "order_date", "order_total", "delivery_address", "customer_id", "dasher_id", "customer", "dasher", "order_item")
         
 order_schema = OrderSchema()
 orders_schema = OrderSchema(many=True)

@@ -16,9 +16,7 @@ from controllers.order_item_controller import order_items_bp
 def create_app():
     app = Flask(__name__)
     
-    print("Server started")
-    
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
+    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://delivery_dev:123456@localhost:5432/delivery_db"
     
     app.json.sort_keys = False
     
